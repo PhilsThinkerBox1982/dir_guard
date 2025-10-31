@@ -24,10 +24,11 @@ chmod -R o-rwx "$(dirname "$TARGET_DIR")"
 # Step 2: Set restrictive permissions on sibling directories
 echo "Blocking sibling access..."
 for sibling in "$(dirname "$TARGET_DIR")"/*; do
-  if [ "$sibling" != "$TARGET_DIR" ]; then
+  if [ "$sibling" != "$TARGET_DIR" ] && [ "$(basename "$sibling")" != "applib" ]; then
     chmod -R o-rwx "$sibling"
   fi
 done
+
 
 # Step 3: Apply strict permissions to the target directory
 echo "Securing target directory..."
